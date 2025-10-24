@@ -1,5 +1,8 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CompletionViewSet
 
-urlpatterns = [
-    # URLs will be added here
-]
+router = DefaultRouter()
+router.register('', CompletionViewSet, basename='completion')
+
+urlpatterns = router.urls

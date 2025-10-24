@@ -15,9 +15,9 @@ class TaskListSerializer(serializers.ModelSerializer):
         ]
 
     def get_is_completed_today(self, obj):
-        """오늘 완료 여부 (나중에 Completion 앱에서 구현)"""
-        # TODO: Completion 앱 구현 후 연결
-        return False
+        """오늘 완료 여부"""
+        from completions.services import CompletionService
+        return CompletionService.is_completed_on_date(obj.id)
 
 
 class TaskDetailSerializer(serializers.ModelSerializer):
@@ -36,13 +36,12 @@ class TaskDetailSerializer(serializers.ModelSerializer):
 
     def get_is_completed_today(self, obj):
         """오늘 완료 여부"""
-        # TODO: Completion 앱 구현 후 연결
-        return False
+        from completions.services import CompletionService
+        return CompletionService.is_completed_on_date(obj.id)
 
     def get_completion_count(self, obj):
         """총 완료 횟수"""
-        # TODO: Completion 앱 구현 후 연결
-        return 0
+        return obj.completions.count()
 
 
 class TaskCreateUpdateSerializer(serializers.ModelSerializer):
